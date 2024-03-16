@@ -2,6 +2,15 @@
 #include <thread>
 #include <mutex>
 #include <vector>
+#include <math.h>
+
+#include "Bank.h"
+
+#define compoundInterest(fa, p, t, n, r) \
+    /*PRE10*/ \
+    do { \
+        fa = p * pow((1 + (r / (n * 100))), (n*t)); \
+    } while(0) //PRE11
 
 void interestHelper(float *interest, int principle, int time, float rate, std::mutex *mutex) {
     (*mutex).lock(); //CON52
@@ -24,5 +33,5 @@ float conSimpleInterest(int principle, int time, float rate) {
     thread1.join();
     thread2.join(); 
 
-    return interest;
+    return interest; //ERR59
 }
