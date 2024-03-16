@@ -28,6 +28,29 @@ int main() {
             break;
         }
     }
+    cout << "Input a number that isnt 5: \n";
+    int number;
+    cin >> number;
+    while(1)
+    {
+        if(userInput == "")
+        {
+            cin.clear();
+            cout<<"Null Input, please enter a number that isnt 5"<< endl;
+            cin>>userInput;
+        }else{
+            break;
+        }
+    }
+
+    StringComparison comparator1(number);
+    StringComparison comparator2(5);
+    comparator1.comparison(comparator1, comparator2);
+    /*
+    Prime prime;
+    prime.myNum = 1;
+    prime.randNum = randomizer();
+    */
     
 
 
