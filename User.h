@@ -13,6 +13,7 @@ class User {
         long rate;
 
     public:
+        User();
         User(std::string name, int id);
         float withdraw(float amount);
         float deposit(float amount);

@@ -2,6 +2,14 @@
 
 #include "User.h"
 
+User::User() {
+    name = "";
+    id = 0;
+    balance = 0;
+    principle = 0;
+    rate = 0;
+}
+
 User::User(std::string name, int id) {
     this->name = name;
     this->id = id;
