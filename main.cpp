@@ -1,6 +1,27 @@
 #include <iostream>
+#include <array>
 #include "Bank.cpp"
 #include "User.cpp"
+
+User* createUsers() {       
+    std::aligned_storage<sizeof(User[10]), alignof(User[10])>::type buffer; //MEM54
+    User* arrptr = ::new (&buffer) User[10];
+    if(!arrptr) { //MEM52
+        std::cout << "Could not create userArr";
+        return;
+    }
+}
+
+User* createUsersHelper() { //ERR58
+    try {
+        return createUsers();
+    } catch (...) {
+        std::cout << "An exception occured";
+        std::terminate();
+    }
+}
+
+User* userArr = createUsersHelper();
 
 int main() {
     int principle = 10000;
