@@ -25,7 +25,7 @@ namespace userNamespace { //DCL58
             long getPrinciple();
             long getRate();
             //OOP57 & EXP62
-            bool User::operator!=(const User &rhs) const
+            bool operator!=(const User &rhs) const
             {
                 return rhs.name > name;
             }

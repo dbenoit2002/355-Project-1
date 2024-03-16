@@ -3,7 +3,7 @@
 #include <vector>
 #include "Bank.cpp"
 #include "User.cpp"
-#include "InputMessing.cpp"
+#include "Randomizer.cpp"
 
 using namespace std;
 
@@ -42,7 +42,18 @@ int main() {
     compoundInterest(result, principle, time, n, rate);
     std::cout << result << "\n";
 
-    User user1("User 1", 1);
+    //STR50 and STR51
+    std::cout << "Please input a username: \n";
+    string username;
+    std::cin >> username;
+
+    if(username == "")
+    {
+        std:cout << "Null value found. Defaulting...\n";
+        username = "User 1";
+    }
+
+    User user1(username, 1);
     std::cout << user1.deposit(1000) << "\n";
     std::cout << user1.withdraw(100) << "\n";
 
@@ -50,10 +61,10 @@ int main() {
     User user3("User 3", 3);
 
     int randomLoan = randomizer();
-    cout << randomLoan << "\n";
-    comparison(user2, user3);
+    cout << randomLoan << " is the random load taken by " << username <<"\n";
+    
 
-    user1.takeLoan(1000, 5.0);
+    user1.takeLoan(randomLoan, 5.0);
     user2.takeLoan(10000, 6.25);
     user3.takeLoan(100000, 10.0);
 
@@ -77,4 +88,6 @@ int main() {
         advance(it, 1);
         //do something with accounts
     }
+    cout<< "Compare User2 and User3 for posterity: \n";
+    comparison(user2, user3);
 }
