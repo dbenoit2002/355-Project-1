@@ -1,6 +1,7 @@
 #include <string>
 
 #include "User.h"
+#include <iostream>
 
 using namespace userNamespace;
 
