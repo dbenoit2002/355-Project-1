@@ -8,8 +8,9 @@ User* createUsers() {
     User* arrptr = ::new (&buffer) User[10];
     if(!arrptr) { //MEM52
         std::cout << "Could not create userArr";
-        return;
+        return nullptr;
     }
+    return arrptr;
 }
 
 User* createUsersHelper() { //ERR58
@@ -17,7 +18,7 @@ User* createUsersHelper() { //ERR58
         return createUsers();
     } catch (...) {
         std::cout << "An exception occured";
-        std::terminate();
+        return nullptr;
     }
 }
 

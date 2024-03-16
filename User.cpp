@@ -2,6 +2,8 @@
 
 #include "User.h"
 
+using namespace userNamespace;
+
 User::User() {
     name = "";
     id = 0;
