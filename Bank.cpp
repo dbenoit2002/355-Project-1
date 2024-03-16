@@ -3,6 +3,7 @@
 #include <mutex>
 #include <vector>
 #include <math.h>
+#include <string>
 
 #include "Bank.h"
 
@@ -34,4 +35,20 @@ float conSimpleInterest(int principle, int time, float rate) {
     thread2.join(); 
 
     return interest; //ERR59
+}
+
+User::User(std::string name, int id) {
+    this->name = name;
+    this->id = id;
+    balance = 0;
+}
+
+float User::withdraw(float amount) {
+    balance -= amount;
+    return balance;
+}
+
+float User::deposit(float amount) {
+    balance += amount;
+    return balance;
 }
