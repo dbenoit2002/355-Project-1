@@ -8,4 +8,9 @@ int main() {
 
     float result = conSimpleInterest(principle, time, rate);
     std::cout << result << "\n";
+
+    int n = 4;
+
+    compoundInterest(result, principle, time, n, rate);
+    std::cout << result << "\n";
 }
