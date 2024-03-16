@@ -54,3 +54,11 @@ long User::getPrinciple() {
 long User::getRate() {
     return rate;
 }
+
+void comparison(User &user1, User &user2)
+{
+    if(user1 != user2)
+    {
+        std::cout<<"These differ.\n";
+    }
+}

@@ -24,6 +24,11 @@ namespace userNamespace { //DCL58
             void takeLoan(int amount, float rate);
             long getPrinciple();
             long getRate();
+            //OOP57 & EXP62
+            bool User::operator!=(const User &rhs) const
+            {
+                return rhs.name > name;
+            }
     };
 }
 #endif

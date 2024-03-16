@@ -79,14 +79,13 @@ void child(){
 /*
     returns a random value between 0 and 100
     MSC50
-
-int randomizer(int n)
+*/
+int randomizer()
 {
     
     static std::random_device rd;
     
-
+    mt19937 engine(rd);
     uniform_int_distribution<int> dist(0,100);
-    //return dist(engine);
+    return dist(engine);
 }
-*/
