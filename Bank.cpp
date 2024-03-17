@@ -38,6 +38,15 @@ float conSimpleInterest(int principle, int time, float rate) {
     return interest; //ERR59
 }
 
+//EXP50
+void processTransactions(int deposit, int withdrawal) {
+    static std::mutex accountMutex;
+    std::lock_guard<std::mutex> lock(accountMutex);
+
+    std::cout << "Processing deposit of $" << deposit << "\n";
+    std::cout << "Processing withdrawal of $" << withdrawal << "\n";
+}
+
 //DCL50, MSC52
 template <typename Arg, typename... Ts, typename std::enable_if<std::is_integral<Arg>::value>::type * = nullptr>
 bool calculateInterest(Arg i, Ts... all) { 
