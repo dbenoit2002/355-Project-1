@@ -5,7 +5,7 @@
 
 using namespace userNamespace;
 
-User::User() {
+User::User(void) {
     name = "";
     id = 0;
     balance = 0;
@@ -31,15 +31,15 @@ float User::deposit(float amount) {
     return balance;
 }
 
-std::string User::getName() {
+std::string User::getName(void) {
     return name;
 }
 
-int User::getID() {
+int User::getID(void) {
     return id;
 }
 
-float User::getBalance() {
+float User::getBalance(void) {
     return balance;
 }
 
@@ -48,7 +48,7 @@ void User::takeLoan(int amount, float rate) {
     this->rate = rate;
 }
 
-long User::getPrinciple() {
+long User::getPrinciple(void) {
     return principle;
 }
 

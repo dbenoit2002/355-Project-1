@@ -72,22 +72,24 @@ int main() {
                       user2.getPrinciple(), user2.getRate(),
                       user3.getPrinciple(), user3.getRate());
   
-    vector<int> bankAccounts = {0, 1, 2, 3, 4};
-    vector<int>::iterator it = bankAccounts.begin();
+    std::vector<User> users = {user1, user2, user3};
+    std::vector<User>::iterator it = users.begin();
     
-    while(it != bankAccounts.end())
+    while(it != users.end())
     {
-        if(it >= bankAccounts.begin() && it < bankAccounts.end())
+        if(it >= users.begin() && it < users.end())
         {
-            cout << *it <<endl;
+            std::cout << it->getName() << it->getID() << it->getBalance() << it->getPrinciple() << it->getRate() << "\n";
         }
         else
         {
             cerr<<"Index out of range"<<endl;
         }
         advance(it, 1);
-        //do something with accounts
     }
     cout<< "Compare User2 and User3 for posterity: \n";
     comparison(user2, user3);
+
+    delete userArr;
+    userArr = nullptr;
 }
