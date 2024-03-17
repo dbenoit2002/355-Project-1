@@ -23,6 +23,7 @@ void interestHelper(float *interest, int principle, int time, float rate, std::m
         std::cout << "An exception occured";
         throw;
     }
+    //CON50
     (*mutex).unlock();
 }
 
@@ -30,6 +31,7 @@ float conSimpleInterest(int principle, int time, float rate) {
     std::mutex mutex; //CON06
     float interest = 0;
 
+    //CON53
     std::thread thread1(interestHelper, &interest, principle, time, rate, &mutex);
     std::thread thread2(interestHelper, &interest, principle, time, rate, &mutex);
     thread1.join();
@@ -38,7 +40,7 @@ float conSimpleInterest(int principle, int time, float rate) {
     return interest; //ERR59
 }
 
-//DCL50, MSC52
+//DCL50, MSC52, EXP58
 template <typename Arg, typename... Ts, typename std::enable_if<std::is_integral<Arg>::value>::type * = nullptr>
 bool calculateInterest(Arg i, Ts... all) { 
     long values[] = { i, all... };
@@ -57,4 +59,17 @@ bool calculateInterest(Arg i, Ts... all) {
         }
     }
     return true;
+}
+
+//INT 50
+bankBranches getBranch(int id){
+    if (id < Houston || id > Boise){
+        std::cout << "Invalid Branch ID! Returning default branch (Normal)" << "\n";
+    }
+    else{
+        bankBranches branch = static_cast<bankBranches>(id);
+        return branch;
+    }
+    bankBranches branch = static_cast<bankBranches>(2);
+    return branch;
 }

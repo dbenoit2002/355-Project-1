@@ -10,7 +10,7 @@ using namespace std;
 User* createUsers() {       
     std::aligned_storage<sizeof(User[10]), alignof(User[10])>::type buffer; //MEM54
     //OOP55
-    User* arrptr = ::new (&buffer) User[10];
+    User* arrptr = new (&buffer) User[10];
     if(!arrptr) { //MEM52
         std::cout << "Could not create userArr";
         return nullptr;
@@ -52,20 +52,28 @@ int main() {
         std:cout << "Null value found. Defaulting...\n";
         username = "User 1";
     }
-
-    User user1(username, 1);
+    //EXP63
+    User user1(std::move(username), 1);
     std::cout << user1.deposit(1000) << "\n";
     std::cout << user1.withdraw(100) << "\n";
 
     User user2("User 2", 2);
     User user3("User 3", 3);
 
+    //INT 50
+    cout << getBranch(user1.getBranchID()) << "\n";
+    cout << getBranch(user2.getBranchID()) << "\n";
+
     int randomLoan = randomizer();
-    cout << randomLoan << " is the random load taken by " << username <<"\n";
+    cout << randomLoan << " is the random loan taken by " << username <<"\n";
     
 
     user1.takeLoan(randomLoan, 5.0);
     user2.takeLoan(10000, 6.25);
+    //INT18-C
+    if( (long)randomLoan + 10000 > user2.getPrinciple() + 50){
+        user2.takeLoan(10050, 6.25);
+    }
     user3.takeLoan(100000, 10.0);
 
     calculateInterest(user1.getPrinciple(), user1.getRate(),
@@ -90,6 +98,7 @@ int main() {
     cout<< "Compare User2 and User3 for posterity: \n";
     comparison(user2, user3);
 
-    delete userArr;
+
+    delete [] userArr;
     userArr = nullptr;
 }
