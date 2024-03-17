@@ -1,3 +1,5 @@
+//By Brian Nicolellis
+
 #include <cstring>
 #include <new>
 #include <iostream>

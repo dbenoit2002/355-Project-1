@@ -1,3 +1,5 @@
+//By Brian Nicolellis
+
 namespace myNamespace { //create and modify your own namespace, not a standard namespace like std
     int add(int num1, int num2) {
         return num1 - num2;

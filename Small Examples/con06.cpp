@@ -1,3 +1,5 @@
+//By Brian Nicolellis
+
 #include <thread>
 #include <mutex>
 #include <iostream>
