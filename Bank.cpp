@@ -8,12 +8,27 @@
 
 #include "Bank.h"
 
+
+/**
+ * @brief Macro that calculates compound interest and stores it in fa
+ * 
+ * (p = principle, t = time (years), n = times calculated per year), r = interest rate
+ */
 #define compoundInterest(fa, p, t, n, r) \
     /*PRE10*/ \
     do { \
         fa = p * pow((1 + (r / (n * 100))), (n*t)); \
     } while(0) //PRE11
 
+/**
+ * @brief Thread function, calculates half of the interest
+ * 
+ * @param interest 
+ * @param principle 
+ * @param time 
+ * @param rate 
+ * @param mutex 
+ */
 void interestHelper(float *interest, int principle, int time, float rate, std::mutex *mutex) {
     (*mutex).lock(); //CON52
     try {
@@ -26,6 +41,14 @@ void interestHelper(float *interest, int principle, int time, float rate, std::m
     (*mutex).unlock();
 }
 
+/**
+ * @brief Calculates simple interest using multithreading
+ * 
+ * @param principle 
+ * @param time 
+ * @param rate 
+ * @return float 
+ */
 float conSimpleInterest(int principle, int time, float rate) {
     std::mutex mutex; //CON06
     float interest = 0;
@@ -38,9 +61,19 @@ float conSimpleInterest(int principle, int time, float rate) {
     return interest; //ERR59
 }
 
-//DCL50, MSC52
 template <typename Arg, typename... Ts, typename std::enable_if<std::is_integral<Arg>::value>::type * = nullptr>
-bool calculateInterest(Arg i, Ts... all) { 
+
+/**
+ * @brief Variadic function, calculates simple and compound interest based on given pairs of principle and rate,
+ * 
+ * (t = 10, n = 4)
+ * 
+ * @param i 
+ * @param all 
+ * @return true 
+ * @return false 
+ */
+bool calculateInterest(Arg i, Ts... all) { //DCL50, MSC52
     long values[] = { i, all... };
     int size = sizeof(values) / sizeof(values[0]); //ARR01
     float result;

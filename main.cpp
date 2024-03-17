@@ -7,6 +7,11 @@
 
 using namespace std;
 
+/**
+ * @brief Creates and returns a pointer to a list of User objects
+ * 
+ * @return User* 
+ */
 User* createUsers() {       
     std::aligned_storage<sizeof(User[10]), alignof(User[10])>::type buffer; //MEM54
     //OOP55
@@ -18,6 +23,11 @@ User* createUsers() {
     return arrptr;
 }
 
+/**
+ * @brief Calls createUsers(), catches any exceptions
+ * 
+ * @return User* 
+ */
 User* createUsersHelper() { //ERR58
     try {
         return createUsers();
