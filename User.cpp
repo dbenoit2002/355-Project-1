@@ -1,6 +1,17 @@
 #include <string>
 
 #include "User.h"
+#include <iostream>
+
+using namespace userNamespace;
+
+User::User() {
+    name = "";
+    id = 0;
+    balance = 0;
+    principle = 0;
+    rate = 0;
+}
 
 User::User(std::string name, int id) {
     this->name = name;
@@ -43,4 +54,12 @@ long User::getPrinciple() {
 
 long User::getRate() {
     return rate;
+}
+
+void comparison(User &user1, User &user2)
+{
+    if(user1 != user2)
+    {
+        std::cout<<"These differ.\n";
+    }
 }
