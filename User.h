@@ -2,7 +2,7 @@
 #define USER_H
 
 #include <string>
-#include <mutex>
+#include <type_traits>
 
 namespace userNamespace { //DCL58
     class User {
@@ -13,8 +13,6 @@ namespace userNamespace { //DCL58
 
             long principle;
             long rate;
-
-            std::mutex balanceMutex; //thread safe
 
         public:
             User();
@@ -27,14 +25,25 @@ namespace userNamespace { //DCL58
             void takeLoan(int amount, float rate);
             long getPrinciple();
             long getRate();
-
-            void processTransactions(int depositAmount, int withdrawalAmount); //EXP50
-
             //OOP57 & EXP62
             bool operator!=(const User &rhs) const
             {
                 return rhs.name > name;
             }
     };
+}
+
+using namespace std;
+struct Printing {
+
+    void print() {
+        cout<<"This is a bank program!"<<endl;
+    }
+};
+static_assert(is_standard_layout<Printing>::value, "Printing is required to be a standard layout type");
+
+void callPrint(Printing &printing)
+{
+    printing.print();
 }
 #endif

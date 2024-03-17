@@ -1,9 +1,7 @@
 #include <iostream>
 #include<cstring>
-/*#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>*/
 #include <fstream>
+#include <string>
 #include <array>
 #include <vector>
 #include "Bank.cpp"
@@ -12,46 +10,49 @@
 
 using namespace std;
 
-User* createUsers() {       
+/**
+ * @brief Creates and returns a pointer to a list of User objects
+ * 
+ * @return User* 
+ */
+void createUsers(User* arrptr) {       
     std::aligned_storage<sizeof(User[10]), alignof(User[10])>::type buffer; //MEM54
-    //OOP55 and EXP54
-    User* arrptr = ::new (&buffer) User[10];
+    //OOP55
+    arrptr = new (&buffer) User[10];
     if(!arrptr) { //MEM52
         std::cout << "Could not create userArr";
-        return nullptr;
     }
-    return arrptr;
 }
 
-User* createUsersHelper() { //ERR58 and part of EXP54
+/**
+ * @brief Calls createUsers(), catches any exceptions
+ * 
+ * @return User* 
+ */
+bool createUsersHelper(User* arrptr) { //ERR58
     try {
-        return createUsers();
+        createUsers(arrptr);
+        return true;
     } catch (...) {
         std::cout << "An exception occured";
-        return nullptr;
+        return false;
     }
 }
 
-User* userArr = createUsersHelper();
+User* userArr = nullptr;
+bool value = createUsersHelper(userArr);
 
-/*void checkBannedUsers(vector<string> bannedVec, string name)
+void mainPrint() //Rule EXP60
 {
-    int i = 0;
-    
-    while(i < bannedVec.size() && name != bannedVec[i])
-    {
-        i++;
-    }
-
-    if(name == bannedVec[i])
-    {
-        cout<<"This user is banned"<<endl;
-    }
-}*/
+    Printing printing;
+    callPrint(printing);
+}
 
 int main() {
 
-    //Rule FIO50 & recommendation STR06
+    mainPrint();
+
+    //Rule FIO50
     const string &fileName = "Banned Users.txt";
     fstream file(fileName);
 
@@ -60,36 +61,32 @@ int main() {
         return 1;
     }
     string line;
+    string fileStr = "";
 
     file.seekg(0, ios::beg);
     while(getline(file, line)) {
         cout<<line<<endl;
+        fileStr = fileStr + line;
     }
 
-    //CTR51
-    std::vector<User> users(4); //defining vector size is rule CTR52
-
-    users.emplace_back("User 1", 1);
-    users.emplace_back("User 2", 2);
-    users.emplace_back("User 3", 3);
-
-    for (auto it = users.begin(); it != users.end(); ++it) 
-    {
-        std::cout << it->getName() << " has ID " << it->getID() << std::endl;
-        
-    }
-
-    //New user, safe to do
-    users.emplace_back("User 4", 4);
-
-    for (auto it = users.begin(); it != users.end(); ++it) 
-    {
-        //Access the elements
-        std::cout << it->getName() << " has ID " << it->getID() << std::endl;
-        
-    }
+    //Recommendation STR06
+    char *token;
+    char str[] = "This is the main for our bank!";
     
-    
+    void *ptr = (char *)malloc(strlen(str) + 1); //Rule MEM53
+    char *copy = new (ptr) char;
+    if(copy == NULL){
+        cerr<<"The copied string is empty"<<endl;
+        exit(1);
+    }
+    strcpy(copy, str);
+    token = strtok(copy," ,");
+
+    while(token!=NULL){
+        cout<<token<<endl;
+        token = strtok(NULL," ,");
+    }
+
     int principle = 10000;
     int time = 7;
     float rate = 6.25;
@@ -109,7 +106,7 @@ int main() {
 
     if(username == "")
     {
-        std::cout << "Null value found. Defaulting...\n";
+        std:cout << "Null value found. Defaulting...\n";
         username = "User 1";
     }
 
@@ -132,7 +129,11 @@ int main() {
                       user2.getPrinciple(), user2.getRate(),
                       user3.getPrinciple(), user3.getRate());
   
-    //std::vector<User> users = {user1, user2, user3};
+    std::vector<User> users(3); // Rule CTR52
+    users.emplace_back(user1);
+    users.emplace_back(user2);
+    users.emplace_back(user3);
+    //= {user1, user2, user3};
     std::vector<User>::iterator it = users.begin();
     
     while(it != users.end())
@@ -150,18 +151,11 @@ int main() {
     cout<< "Compare User2 and User3 for posterity: \n";
     comparison(user2, user3);
 
-    // delete userArr;
-    //EXP54
-    //Destruct and deallocate userArr.
-    for (int i = 0; i < 10; ++i) 
-    {
-        userArr[i].~User();
-    }
-    userArr = nullptr;
     delete[] userArr; // Using delete[] on userArr is rule MEM51
-    /*delete[] str;
-    free(copy);
-    copy = NULL;*/
+    userArr = nullptr;
 
-    return 0;
+    delete copy;
+
+    free(ptr);
+    ptr = NULL;
 }

@@ -21,54 +21,13 @@ User::User(std::string name, int id) {
     rate=0;
 }
 
-//EXP50
-void User::processTransactions(int depositAmount, int withdrawalAmount) {
-    std::cout << "Starting transactions for " << name << ".\n";
-
-    //Deposit deposit
-    this->deposit(depositAmount);
-    std::cout << "Deposited " << depositAmount << ".\n";
-
-    //Withdrawal
-    if (withdrawalAmount <= depositAmount) {
-        this->withdraw(withdrawalAmount);
-        std::cout << "Withdrew " << withdrawalAmount << ".\n";
-    } else {
-        std::cout << "Withdrawal amount exceeds the deposited amount, transaction not processed.\n";
-    }
-}
-
-// float User::withdraw(float amount) {
-//     balance -= amount;
-//     return balance;
-// }
-
-//Updated the above code to ensure the numbers are right and won't go into negatives
-//Feel free to go back to original and remove if too much
 float User::withdraw(float amount) {
-    if (amount > balance) {
-        std::cout << "Withdrawal failed. Insufficient balance.\n";
-        return balance; // Could use a specific value or throw an exception to indicate failure.
-    }
     balance -= amount;
-    std::cout << "Withdrawal of $" << amount << " successful. New balance: $" << balance << ".\n";
     return balance;
 }
 
-
-// float User::deposit(float amount) {
-//     balance += amount;
-//     return balance;
-// }
-
-//Same thing as withdraw, updated to ensure numbers are correctly checked
 float User::deposit(float amount) {
-    if (amount < 0) {
-        std::cout << "Deposit failed. Negative amount.\n";
-        return balance; // Could use a specific value or throw an exception to indicate failure.
-    }
     balance += amount;
-    std::cout << "Deposit of $" << amount << " successful. New balance: $" << balance << ".\n";
     return balance;
 }
 
