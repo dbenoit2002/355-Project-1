@@ -1,4 +1,9 @@
 #include <iostream>
+#include<cstring>
+/*#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>*/
+#include <fstream>
 #include <array>
 #include <vector>
 #include "Bank.cpp"
@@ -29,10 +34,40 @@ User* createUsersHelper() { //ERR58 and part of EXP54
 
 User* userArr = createUsersHelper();
 
+/*void checkBannedUsers(vector<string> bannedVec, string name)
+{
+    int i = 0;
+    
+    while(i < bannedVec.size() && name != bannedVec[i])
+    {
+        i++;
+    }
+
+    if(name == bannedVec[i])
+    {
+        cout<<"This user is banned"<<endl;
+    }
+}*/
+
 int main() {
 
+    //Rule FIO50 & recommendation STR06
+    const string &fileName = "Banned Users.txt";
+    fstream file(fileName);
+
+    if(!file.is_open()) {
+        cerr<<"Could not open file"<<endl;
+        return 1;
+    }
+    string line;
+
+    file.seekg(0, ios::beg);
+    while(getline(file, line)) {
+        cout<<line<<endl;
+    }
+
     //CTR51
-    std::vector<User> users;
+    std::vector<User> users(4); //defining vector size is rule CTR52
 
     users.emplace_back("User 1", 1);
     users.emplace_back("User 2", 2);
@@ -41,6 +76,7 @@ int main() {
     for (auto it = users.begin(); it != users.end(); ++it) 
     {
         std::cout << it->getName() << " has ID " << it->getID() << std::endl;
+        
     }
 
     //New user, safe to do
@@ -50,6 +86,7 @@ int main() {
     {
         //Access the elements
         std::cout << it->getName() << " has ID " << it->getID() << std::endl;
+        
     }
     
     
@@ -95,7 +132,7 @@ int main() {
                       user2.getPrinciple(), user2.getRate(),
                       user3.getPrinciple(), user3.getRate());
   
-    std::vector<User> users = {user1, user2, user3};
+    //std::vector<User> users = {user1, user2, user3};
     std::vector<User>::iterator it = users.begin();
     
     while(it != users.end())
@@ -121,6 +158,10 @@ int main() {
         userArr[i].~User();
     }
     userArr = nullptr;
+    delete[] userArr; // Using delete[] on userArr is rule MEM51
+    /*delete[] str;
+    free(copy);
+    copy = NULL;*/
 
     return 0;
 }
