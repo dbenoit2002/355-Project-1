@@ -8,9 +8,8 @@
 using namespace std;
 
 /**
- * @brief Creates and returns a pointer to a list of User objects
+ * @brief Allocates and returns a pointer to a list of User objects
  * 
- * @return User* 
  */
 void createUsers(User* arrptr) {       
     std::aligned_storage<sizeof(User[10]), alignof(User[10])>::type buffer; //MEM54
@@ -24,7 +23,7 @@ void createUsers(User* arrptr) {
 /**
  * @brief Calls createUsers(), catches any exceptions
  * 
- * @return User* 
+ * @return bool
  */
 bool createUsersHelper(User* arrptr) { //ERR58
     try {
