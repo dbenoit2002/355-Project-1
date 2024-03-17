@@ -30,6 +30,29 @@ User* createUsersHelper() { //ERR58 and part of EXP54
 User* userArr = createUsersHelper();
 
 int main() {
+
+    //CTR51
+    std::vector<User> users;
+
+    users.emplace_back("User 1", 1);
+    users.emplace_back("User 2", 2);
+    users.emplace_back("User 3", 3);
+
+    for (auto it = users.begin(); it != users.end(); ++it) 
+    {
+        std::cout << it->getName() << " has ID " << it->getID() << std::endl;
+    }
+
+    //New user, safe to do
+    users.emplace_back("User 4", 4);
+
+    for (auto it = users.begin(); it != users.end(); ++it) 
+    {
+        //Access the elements
+        std::cout << it->getName() << " has ID " << it->getID() << std::endl;
+    }
+    
+    
     int principle = 10000;
     int time = 7;
     float rate = 6.25;
@@ -98,4 +121,6 @@ int main() {
         userArr[i].~User();
     }
     userArr = nullptr;
+
+    return 0;
 }
