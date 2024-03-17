@@ -45,8 +45,13 @@ User* userArr = nullptr;
 bool value = createUsersHelper(userArr);
 
 void printCharArray(char *ptr, size_t number) { //Recommendation MEM00
-
+    //MEM04
+    if(number == 0){
+        std::cout << "Invalid Length!" << std::endl;
+        return;
+    }
     int* list = (int*) malloc(number * sizeof(int));
+    //MEM05
     if(ptr == NULL) {
         cerr<<"No memory allocated to ptr"<<endl;
     }
