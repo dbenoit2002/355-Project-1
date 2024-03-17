@@ -9,6 +9,7 @@ namespace userNamespace { //DCL58
         private:
             std::string name;
             int id;
+            int branch_id;
             float balance;
 
             long principle;
@@ -17,11 +18,13 @@ namespace userNamespace { //DCL58
         public:
             User();
             User(std::string name, int id);
+            ~User();
             float withdraw(float amount);
             float deposit(float amount);
             std::string getName();
             int getID();
             float getBalance();
+            int getBranchID();
             void takeLoan(int amount, float rate);
             long getPrinciple();
             long getRate();
