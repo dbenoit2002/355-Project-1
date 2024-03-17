@@ -10,6 +10,8 @@
 
 using namespace std;
 
+enum { MIN_SIZE_ALLOWED = 10 };
+
 /**
  * @brief Creates and returns a pointer to a list of User objects
  * 
@@ -42,6 +44,28 @@ bool createUsersHelper(User* arrptr) { //ERR58
 User* userArr = nullptr;
 bool value = createUsersHelper(userArr);
 
+void printCharArray(char *ptr, size_t number) { //Recommendation MEM00
+
+    int* list = (int*) malloc(number * sizeof(int));
+    if(ptr == NULL) {
+        cerr<<"No memory allocated to ptr"<<endl;
+    }
+    if(number >= MIN_SIZE_ALLOWED) {
+        for(int i = 0; i < number; i++) {
+            list[i] = ptr[i];
+        }
+    }
+    else {
+        cerr<<"The size of array ptr is less than the minimum allowed size for an array"<<endl;
+        free(list);
+        return;
+    }
+    for(int i = 0; i < number; i++) {
+        cout<<list[i]<<"\n"<<endl;
+    }
+    free(list);
+}
+
 void mainPrint() //Rule EXP60
 {
     Printing printing;
@@ -72,6 +96,7 @@ int main() {
     //Recommendation STR06
     char *token;
     char str[] = "This is the main for our bank!";
+    printCharArray(str, strlen(str));
     
     void *ptr = (char *)malloc(strlen(str) + 1); //Rule MEM53
     char *copy = new (ptr) char;
@@ -153,8 +178,6 @@ int main() {
 
     delete[] userArr; // Using delete[] on userArr is rule MEM51
     userArr = nullptr;
-
-    delete copy;
 
     free(ptr);
     ptr = NULL;
