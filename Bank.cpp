@@ -42,23 +42,25 @@ float conSimpleInterest(int principle, int time, float rate) {
 
 //DCL50, MSC52, EXP58
 template <typename Arg, typename... Ts, typename std::enable_if<std::is_integral<Arg>::value>::type * = nullptr>
-bool calculateInterest(Arg i, Ts... all) { 
+int calculateInterest(Arg i, Ts... all) { 
     long values[] = { i, all... };
     int size = sizeof(values) / sizeof(values[0]); //ARR01
     float result;
+    int booleanTF = 0; //Recommendation EXP20
 
     for(int i = 0; i < size; i += 2) {
         if(i == size) {
-            return false; //not even # args
+            return 0; //not even # args
         }
         else {
             result = conSimpleInterest(values[i], 10, values[i+1]);
             std::cout << "Simple interest: " << result << "\n";
             compoundInterest(result, values[i], 10, 4, values[i+1]);
             std::cout << "Compound interest: " << result << "\n";
+            booleanTF++;
         }
     }
-    return true;
+    return booleanTF;
 }
 
 //INT 50

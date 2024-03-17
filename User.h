@@ -2,6 +2,7 @@
 #define USER_H
 
 #include <string>
+#include <type_traits>
 
 namespace userNamespace { //DCL58
     class User {
@@ -33,5 +34,19 @@ namespace userNamespace { //DCL58
                 return rhs.name > name;
             }
     };
+}
+
+using namespace std;
+struct Printing {
+
+    void print() {
+        cout<<"This is a bank program!"<<endl;
+    }
+};
+static_assert(is_standard_layout<Printing>::value, "Printing is required to be a standard layout type");
+
+void callPrint(Printing &printing)
+{
+    printing.print();
 }
 #endif
