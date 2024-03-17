@@ -62,6 +62,12 @@ bool calculateInterest(Arg i, Ts... all) {
 }
 
 //INT 50
+/**
+ * @brief Get the Branch object by comparing against bankBranches enum
+ * 
+ * @param id = a bank branch id in the User class
+ * @return bankBranches value
+ */
 bankBranches getBranch(int id){
     if (id < Houston || id > Boise){
         std::cout << "Invalid Branch ID! Returning default branch (Normal)" << "\n";

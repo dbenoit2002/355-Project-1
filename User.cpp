@@ -54,6 +54,11 @@ float User::getBalance(void) {
     return balance;
 }
 
+/**
+ * @brief gets User's branch id
+ * 
+ * @return int branch value
+ */
 int User::getBranchID(){
     return branch_id;
 }
