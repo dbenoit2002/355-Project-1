@@ -1,4 +1,5 @@
 #include <iostream>
+#include <new>
 #include<cstring>
 #include <fstream>
 #include <string>
@@ -10,7 +11,8 @@
 
 using namespace std;
 
-enum { MIN_SIZE_ALLOWED = 10 };
+#define VAR_NAME(a) cout<<#a<<" with a value of: "<<(a)<<endl 
+enum { MAX_SIZE_ALLOWED_CHAR_ARRAY = 1024 };
 
 /**
  * @brief Creates and returns a pointer to a list of User objects
@@ -44,13 +46,33 @@ bool createUsersHelper(User* arrptr) { //ERR58
 User* userArr = nullptr;
 bool value = createUsersHelper(userArr);
 
+struct enumObj { //Rule MEM55
+    static void *operator new(size_t size) {
+        if (void *ret = malloc(size)) {
+            return ret;
+        }
+
+        throw bad_alloc();
+    }
+
+    static void operator delete(void *ptr) noexcept(true) {
+        free(ptr);
+    }
+};
+
+/**
+ * @brief Copies the parameter ptr into list and prints out list taking into account freeing memory at the same level of abstraction
+ * 
+ * @param ptr An array of characters
+ * @param number Te size of the array ptr
+ */
 void printCharArray(char *ptr, size_t number) { //Recommendation MEM00
 
-    int* list = (int*) malloc(number * sizeof(int));
+    char* list = (char*) malloc(number * sizeof(char));
     if(ptr == NULL) {
         cerr<<"No memory allocated to ptr"<<endl;
     }
-    if(number >= MIN_SIZE_ALLOWED) {
+    if(number <= MAX_SIZE_ALLOWED_CHAR_ARRAY) {
         for(int i = 0; i < number; i++) {
             list[i] = ptr[i];
         }
@@ -61,18 +83,44 @@ void printCharArray(char *ptr, size_t number) { //Recommendation MEM00
         return;
     }
     for(int i = 0; i < number; i++) {
-        cout<<list[i]<<"\n"<<endl;
+        cout<<list[i];
     }
+    cout<<endl;
     free(list);
 }
 
+/**
+ * @brief A printing function that takes into account not passing nonstandard-layout type object across execution boundaries (can be found in User.h)
+ * 
+ */
 void mainPrint() //Rule EXP60
 {
     Printing printing;
     callPrint(printing);
 }
 
+/**
+ * @brief This function is an implementation of std::max from the algorithm library
+ * 
+ * @param num1 First number to compare
+ * @param num2 Second number to compare
+ * @return int Larger of the two integer parameters
+ */
+int maxNumber (int num1, int num2) //Recommendation PRE09
+{
+    if(num1 > num2)
+    {
+        return num1;
+    }
+    else
+    {
+        return num2;
+    }
+}
+
 int main() {
+
+    enumObj *obj = new enumObj;
 
     mainPrint();
 
@@ -90,12 +138,15 @@ int main() {
     file.seekg(0, ios::beg);
     while(getline(file, line)) {
         cout<<line<<endl;
-        fileStr = fileStr + line;
+        fileStr += line;
+        fileStr += " ";
     }
 
     //Recommendation STR06
     char *token;
-    char str[] = "This is the main for our bank!";
+    char str[MAX_SIZE_ALLOWED_CHAR_ARRAY];
+    strncpy(str, fileStr.c_str(), sizeof(str) - 1);
+    str[sizeof(str) - 1];
     printCharArray(str, strlen(str));
     
     void *ptr = (char *)malloc(strlen(str) + 1); //Rule MEM53
@@ -113,6 +164,15 @@ int main() {
     }
 
     int principle = 10000;
+    cout<<"Between principle and MAX_SIZE_ALLOWED_CHAR_ARRAY, the larger of the two is ";
+    if(principle == maxNumber(principle, MAX_SIZE_ALLOWED_CHAR_ARRAY))
+    {
+        VAR_NAME(principle);
+    }
+    else
+    {
+        VAR_NAME(MAX_SIZE_ALLOWED_CHAR_ARRAY);
+    }
     int time = 7;
     float rate = 6.25;
 
@@ -181,4 +241,6 @@ int main() {
 
     free(ptr);
     ptr = NULL;
+
+    delete obj;
 }
