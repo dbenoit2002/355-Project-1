@@ -17,6 +17,11 @@ using namespace std;
 //     return dist(engine);
 // }
 
+/*  
+    Ensure your random number generator is properly seeded
+    MSC51
+*/
+
 int randomizer()
 {
     static std::random_device rd;
