@@ -139,7 +139,7 @@ int main() {
     {
         if(it >= users.begin() && it < users.end())
         {
-            std::cout << it->getName() << it->getID() << it->getBalance() << it->getPrinciple() << it->getRate() << "\n";
+            std::cout << it->getName() << " " << it->getID() << " "<< it->getBalance() << " " << it->getPrinciple() << " " << it->getRate() << "\n";
         }
         else
         {

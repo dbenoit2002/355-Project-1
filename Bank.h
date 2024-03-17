@@ -4,6 +4,8 @@
 
 void processTransactions(int deposit, int withdrawal); //For EXP50
 
+#include <mutex>
+
 void interestHelper(float *interest, int principle, int time, float rate, std::mutex *mutex);
 float conSimpleInterest(int principle, int time, float rate);
 
