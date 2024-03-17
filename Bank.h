@@ -1,18 +1,10 @@
-#ifndef BANK_H_
-#define BANK_H_
+#ifndef BANK_H
+#define BANK_H
+#include <mutex>
 
-#include <iostream>
-using namespace std;
+void processTransactions(int deposit, int withdrawal); //For EXP50
 
-class Bank
-{
-  double deposit;
-  double interest;
-  double timeInYears;
-
-  public:
-    Bank(double amt, double rate, double time);
-    double simpleInterest();
-};
+void interestHelper(float *interest, int principle, int time, float rate, std::mutex *mutex);
+float conSimpleInterest(int principle, int time, float rate);
 
 #endif
