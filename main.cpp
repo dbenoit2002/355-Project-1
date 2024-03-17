@@ -12,15 +12,13 @@ using namespace std;
  * 
  * @return User* 
  */
-User* createUsers() {       
+void createUsers(User* arrptr) {       
     std::aligned_storage<sizeof(User[10]), alignof(User[10])>::type buffer; //MEM54
     //OOP55
-    User* arrptr = ::new (&buffer) User[10];
+    arrptr = new (&buffer) User[10];
     if(!arrptr) { //MEM52
         std::cout << "Could not create userArr";
-        return nullptr;
     }
-    return arrptr;
 }
 
 /**
@@ -28,16 +26,18 @@ User* createUsers() {
  * 
  * @return User* 
  */
-User* createUsersHelper() { //ERR58
+bool createUsersHelper(User* arrptr) { //ERR58
     try {
-        return createUsers();
+        createUsers(arrptr);
+        return true;
     } catch (...) {
         std::cout << "An exception occured";
-        return nullptr;
+        return false;
     }
 }
 
-User* userArr = createUsersHelper();
+User* userArr = nullptr;
+bool value = createUsersHelper(userArr);
 
 int main() {
     int principle = 10000;
