@@ -9,7 +9,7 @@ using namespace std;
 
 User* createUsers() {       
     std::aligned_storage<sizeof(User[10]), alignof(User[10])>::type buffer; //MEM54
-    //OOP55
+    //OOP55 and EXP54
     User* arrptr = ::new (&buffer) User[10];
     if(!arrptr) { //MEM52
         std::cout << "Could not create userArr";
@@ -18,7 +18,7 @@ User* createUsers() {
     return arrptr;
 }
 
-User* createUsersHelper() { //ERR58
+User* createUsersHelper() { //ERR58 and part of EXP54
     try {
         return createUsers();
     } catch (...) {
@@ -49,7 +49,7 @@ int main() {
 
     if(username == "")
     {
-        std:cout << "Null value found. Defaulting...\n";
+        std::cout << "Null value found. Defaulting...\n";
         username = "User 1";
     }
 
@@ -90,6 +90,12 @@ int main() {
     cout<< "Compare User2 and User3 for posterity: \n";
     comparison(user2, user3);
 
-    delete userArr;
+    // delete userArr;
+    //EXP54
+    //Destruct and deallocate userArr.
+    for (int i = 0; i < 10; ++i) 
+    {
+        userArr[i].~User();
+    }
     userArr = nullptr;
 }
