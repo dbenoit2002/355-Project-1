@@ -73,7 +73,7 @@ int main() {
                       user3.getPrinciple(), user3.getRate());
   
     std::vector<User> users = {user1, user2, user3};
-    std::vector<User>::iterator it = users.begin();
+    std::vector<User*>::iterator it = users.begin();
     
     while(it != users.end())
     {
@@ -89,4 +89,7 @@ int main() {
     }
     cout<< "Compare User2 and User3 for posterity: \n";
     comparison(user2, user3);
+
+    delete it;
+    it = nullptr;
 }
