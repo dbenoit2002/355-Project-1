@@ -64,7 +64,7 @@ struct enumObj { //Rule MEM55
  * @brief Copies the parameter ptr into list and prints out list taking into account freeing memory at the same level of abstraction
  * 
  * @param ptr An array of characters
- * @param number Te size of the array ptr
+ * @param number The size of the array ptr
  */
 void printCharArray(char *ptr, size_t number) { //Recommendation MEM00
     //MEM04
