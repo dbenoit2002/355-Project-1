@@ -36,4 +36,5 @@ int main() {
     else {
         cout<<"The file and the strings are not the same!"<<endl;
     }
+    file.close();
 }
