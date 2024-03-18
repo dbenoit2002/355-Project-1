@@ -96,7 +96,7 @@ int calculateInterest(Arg i, Ts... all) {
     }
     return booleanTF;
 }
-
+ 
 //INT 50
 /**
  * @brief Get the Branch object by comparing against bankBranches enum
