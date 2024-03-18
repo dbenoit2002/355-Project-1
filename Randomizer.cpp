@@ -3,10 +3,11 @@
 #include <random>
 using namespace std;
 
-/*
-    returns a random value between 0 and 100
-    MSC50
-*/
+/**
+ * @brief Returns a random value between 0 and 100
+ * MSC50
+ * 
+ */
 int randomizer()
 {
     
