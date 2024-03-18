@@ -42,6 +42,23 @@ catch (std::exception exc){
     return;
 }
 
+//EXP50
+void User::processTransactions(int depositAmount, int withdrawalAmount) {
+    std::cout << "Starting transactions for " << name << ".\n";
+
+    //Deposit deposit
+    this->deposit(depositAmount);
+    std::cout << "Deposited " << depositAmount << ".\n";
+
+    //Withdrawal
+    if (withdrawalAmount <= depositAmount) {
+        this->withdraw(withdrawalAmount);
+        std::cout << "Withdrew " << withdrawalAmount << ".\n";
+    } else {
+        std::cout << "Withdrawal amount exceeds the deposited amount, transaction not processed.\n";
+    }
+}
+
 /**
  * @brief Withdraw amount from user's blance
  * 
@@ -49,7 +66,12 @@ catch (std::exception exc){
  * @return float 
  */
 float User::withdraw(float amount) {
+    if (amount > balance) {
+        std::cout << "Withdrawal failed. Insufficient balance.\n";
+        return balance; // Could use a specific value or throw an exception to indicate failure.
+    }
     balance -= amount;
+    std::cout << "Withdrawal of $" << amount << " successful. New balance: $" << balance << ".\n";
     return balance;
 }
 
@@ -60,7 +82,12 @@ float User::withdraw(float amount) {
  * @return float 
  */
 float User::deposit(float amount) {
+    if (amount < 0) {
+        std::cout << "Deposit failed. Negative amount.\n";
+        return balance; // Could use a specific value or throw an exception to indicate failure.
+    }
     balance += amount;
+    std::cout << "Deposit of $" << amount << " successful. New balance: $" << balance << ".\n";
     return balance;
 }
 

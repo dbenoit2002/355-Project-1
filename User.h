@@ -28,6 +28,8 @@ namespace userNamespace { //DCL58
             void takeLoan(int amount, float rate);
             long getPrinciple();
             long getRate();
+
+            void processTransactions(int depositAmount, int withdrawalAmount); //EXP50
             //OOP57 & EXP62
             bool operator!=(const User &rhs) const
             {

@@ -17,13 +17,15 @@ enum { MAX_SIZE_ALLOWED_CHAR_ARRAY = 1024 };
  * @brief Allocates and returns a pointer to a list of User objects
  * 
  */
-void createUsers(User* arrptr) {       
+User* createUsers() {       
     std::aligned_storage<sizeof(User[10]), alignof(User[10])>::type buffer; //MEM54
-    //OOP55
-    arrptr = new (&buffer) User[10];
+    //OOP55 and EXP54
+    User* arrptr = ::new (&buffer) User[10];
     if(!arrptr) { //MEM52
         std::cout << "Could not create userArr";
+        return nullptr;
     }
+    return arrptr;
 }
 
 /**
@@ -33,7 +35,7 @@ void createUsers(User* arrptr) {
  */
 bool createUsersHelper(User* arrptr) { //ERR58
     try {
-        createUsers(arrptr);
+        createUsers();
         return true;
     } catch (...) {
         std::cout << "An exception occured";
@@ -247,6 +249,9 @@ int main() {
     cout<< "Compare User2 and User3 for posterity: \n";
     comparison(user2, user3);
 
+    // delete userArr;
+    //EXP54
+    //Deallocate userArr.
     delete[] userArr; // Using delete[] on userArr is rule MEM51
     userArr = nullptr;
 
