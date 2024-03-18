@@ -17,15 +17,13 @@ enum { MAX_SIZE_ALLOWED_CHAR_ARRAY = 1024 };
  * @brief Allocates and returns a pointer to a list of User objects
  * 
  */
-User* createUsers() {       
+void createUsers(User* arrptr) {       
     std::aligned_storage<sizeof(User[10]), alignof(User[10])>::type buffer; //MEM54
     //OOP55 and EXP54
-    User* arrptr = ::new (&buffer) User[10];
+    arrptr = ::new (&buffer) User[10];
     if(!arrptr) { //MEM52
         std::cout << "Could not create userArr";
-        return nullptr;
     }
-    return arrptr;
 }
 
 /**
@@ -35,7 +33,7 @@ User* createUsers() {
  */
 bool createUsersHelper(User* arrptr) { //ERR58
     try {
-        createUsers();
+        createUsers(arrptr);
         return true;
     } catch (...) {
         std::cout << "An exception occured";
