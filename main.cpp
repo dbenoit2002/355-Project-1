@@ -65,8 +65,13 @@ struct enumObj { //Rule MEM55
  * @param number Te size of the array ptr
  */
 void printCharArray(char *ptr, size_t number) { //Recommendation MEM00
-
-    char* list = (char*) malloc(number * sizeof(char));
+    //MEM04
+    if(number == 0){
+        std::cout << "Invalid Length!" << std::endl;
+        return;
+    }
+    int* list = (int*) malloc(number * sizeof(int));
+    //MEM05
     if(ptr == NULL) {
         cerr<<"No memory allocated to ptr"<<endl;
     }
