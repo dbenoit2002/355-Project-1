@@ -2,7 +2,7 @@
 #define BANK_H
 
 #include <mutex>
-
+ 
 void interestHelper(float *interest, int principle, int time, float rate, std::mutex *mutex);
 float conSimpleInterest(int principle, int time, float rate);
 //INT 50
