@@ -254,4 +254,7 @@ int main() {
     ptr = NULL;
 
     delete obj;
+
+    //FIO51
+    file.close();
 }
