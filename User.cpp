@@ -12,6 +12,7 @@ using namespace userNamespace;
 User::User(void) {
     name = "";
     id = 0;
+    branch_id = 2;
     balance = 0;
     principle = 0;
     rate = 0;
@@ -27,8 +28,18 @@ User::User(std::string name, int id) {
     this->name = name;
     this->id = id;
     balance = 0;
+    branch_id = 7;
     principle = 0;
     rate=0;
+}
+//DCL57
+User::~User()
+try { 
+
+}
+catch (std::exception exc){
+    std::cout << "An Exception has occurred: " << std::endl;
+    return;
 }
 
 /**
@@ -80,8 +91,18 @@ float User::getBalance(void) {
     return balance;
 }
 
+
+ /** 
+ * @brief gets User's branch id
+ * 
+ * @return int branch value
+ */
+int User::getBranchID(){
+    return branch_id;
+}
+
 /**
- * @brief Takke a loan with given amount and rate
+ * @brief Take a loan with given amount and rate
  * 
  * @param amount 
  * @param rate 

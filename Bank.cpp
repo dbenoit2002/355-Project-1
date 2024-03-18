@@ -38,6 +38,7 @@ void interestHelper(float *interest, int principle, int time, float rate, std::m
         std::cout << "An exception occured";
         throw;
     }
+    //CON50
     (*mutex).unlock();
 }
 
@@ -53,6 +54,7 @@ float conSimpleInterest(int principle, int time, float rate) {
     std::mutex mutex; //CON06
     float interest = 0;
 
+    //CON53
     std::thread thread1(interestHelper, &interest, principle, time, rate, &mutex);
     std::thread thread2(interestHelper, &interest, principle, time, rate, &mutex);
     thread1.join();
@@ -61,6 +63,7 @@ float conSimpleInterest(int principle, int time, float rate) {
     return interest; //ERR59
 }
 
+//DCL50, MSC52, EXP58
 template <typename Arg, typename... Ts, typename std::enable_if<std::is_integral<Arg>::value>::type * = nullptr>
 
 /**
@@ -70,24 +73,45 @@ template <typename Arg, typename... Ts, typename std::enable_if<std::is_integral
  * 
  * @param i 
  * @param all 
- * @return true 
- * @return false 
+ * @return non-0 integer 
+ * @return 0
  */
-bool calculateInterest(Arg i, Ts... all) { //DCL50, MSC52
+int calculateInterest(Arg i, Ts... all) { 
     long values[] = { i, all... };
     int size = sizeof(values) / sizeof(values[0]); //ARR01
     float result;
+    int booleanTF = 0; //Recommendation EXP20
 
     for(int i = 0; i < size; i += 2) {
         if(i == size) {
-            return false; //not even # args
+            return 0; //not even # args
         }
         else {
             result = conSimpleInterest(values[i], 10, values[i+1]);
             std::cout << "Simple interest: " << result << "\n";
             compoundInterest(result, values[i], 10, 4, values[i+1]);
             std::cout << "Compound interest: " << result << "\n";
+            booleanTF++;
         }
     }
-    return true;
+    return booleanTF;
+}
+
+//INT 50
+/**
+ * @brief Get the Branch object by comparing against bankBranches enum
+ * 
+ * @param id = a bank branch id in the User class
+ * @return bankBranches value
+ */
+bankBranches getBranch(int id){
+    if (id < Houston || id > Boise){
+        std::cout << "Invalid Branch ID! Returning default branch (Normal)" << "\n";
+    }
+    else{
+        bankBranches branch = static_cast<bankBranches>(id);
+        return branch;
+    }
+    bankBranches branch = static_cast<bankBranches>(2);
+    return branch;
 }
