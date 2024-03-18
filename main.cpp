@@ -8,7 +8,7 @@
 #include "Bank.cpp"
 #include "User.cpp"
 #include "Randomizer.cpp"
-
+ 
 using namespace std;
 
 #define VAR_NAME(a) cout<<#a<<" with a value of: "<<(a)<<endl 

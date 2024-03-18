@@ -2,7 +2,7 @@
 #include <string>
 #include <random>
 using namespace std;
-
+ 
 /*
     returns a random value between 0 and 100
     MSC50
