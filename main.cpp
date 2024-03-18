@@ -10,6 +10,8 @@
 #include "Randomizer.cpp"
  
 using namespace std;
+#define VAR_NAME(a) cout<<#a<<" with a value of: "<<(a)<<endl 
+enum { MAX_SIZE_ALLOWED_CHAR_ARRAY = 1024 };
 
 /**
  * @brief Allocates and returns a pointer to a list of User objects
