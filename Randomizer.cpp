@@ -4,16 +4,19 @@
 using namespace std;
 
 /**
- * @brief Returns a random value between 0 and 100
- * MSC50
+ *  @brief returns a random value between 0 and 100
+ *  MSC50
+ *  
+ *  @brief Ensure your random number generator is properly seeded
+ *  MSC51
  * 
  */
+
 int randomizer()
 {
-    
     static std::random_device rd;
-    int num = rand();
-    mt19937 engine(num);
-    uniform_int_distribution<int> dist(0,100);
+    static std::mt19937 engine(rd());
+    std::uniform_int_distribution<int> dist(0,100);
+
     return dist(engine);
 }

@@ -1,5 +1,5 @@
 #include <string>
-
+ 
 #include "User.h"
 #include <iostream>
 
@@ -12,6 +12,7 @@ using namespace userNamespace;
 User::User(void) {
     name = "";
     id = 0;
+    branch_id = 2;
     balance = 0;
     principle = 0;
     rate = 0;
@@ -27,8 +28,35 @@ User::User(std::string name, int id) {
     this->name = name;
     this->id = id;
     balance = 0;
+    branch_id = 7;
     principle = 0;
     rate=0;
+}
+//DCL57
+User::~User()
+try { 
+
+}
+catch (std::exception exc){
+    std::cout << "An Exception has occurred: " << std::endl;
+    return;
+}
+
+//EXP50
+void User::processTransactions(int depositAmount, int withdrawalAmount) {
+    std::cout << "Starting transactions for " << name << ".\n";
+
+    //Deposit deposit
+    this->deposit(depositAmount);
+    std::cout << "Deposited " << depositAmount << ".\n";
+
+    //Withdrawal
+    if (withdrawalAmount <= depositAmount) {
+        this->withdraw(withdrawalAmount);
+        std::cout << "Withdrew " << withdrawalAmount << ".\n";
+    } else {
+        std::cout << "Withdrawal amount exceeds the deposited amount, transaction not processed.\n";
+    }
 }
 
 /**
@@ -38,7 +66,12 @@ User::User(std::string name, int id) {
  * @return float 
  */
 float User::withdraw(float amount) {
+    if (amount > balance) {
+        std::cout << "Withdrawal failed. Insufficient balance.\n";
+        return balance; // Could use a specific value or throw an exception to indicate failure.
+    }
     balance -= amount;
+    std::cout << "Withdrawal of $" << amount << " successful. New balance: $" << balance << ".\n";
     return balance;
 }
 
@@ -49,7 +82,12 @@ float User::withdraw(float amount) {
  * @return float 
  */
 float User::deposit(float amount) {
+    if (amount < 0) {
+        std::cout << "Deposit failed. Negative amount.\n";
+        return balance; // Could use a specific value or throw an exception to indicate failure.
+    }
     balance += amount;
+    std::cout << "Deposit of $" << amount << " successful. New balance: $" << balance << ".\n";
     return balance;
 }
 
@@ -80,8 +118,18 @@ float User::getBalance(void) {
     return balance;
 }
 
+
+ /** 
+ * @brief gets User's branch id
+ * 
+ * @return int branch value
+ */
+int User::getBranchID(){
+    return branch_id;
+}
+
 /**
- * @brief Takke a loan with given amount and rate
+ * @brief Take a loan with given amount and rate
  * 
  * @param amount 
  * @param rate 
